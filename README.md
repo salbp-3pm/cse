@@ -1,6 +1,6 @@
 # SALBP-3PM: Simple Assembly Line Balancing Problem with Power Peak Minimization
 
-This repository contains the implementation of SAT-based approaches for solving the **Simple Assembly Line Balancing Problem with Power Peak Minimization (SALBP-3PM)**.
+This repository contains the implementation of Compact SAT encodings for solving the **Simple Assembly Line Balancing Problem with Power Peak Minimization (SALBP-3PM)**.
 
 ## Problem Description
 
