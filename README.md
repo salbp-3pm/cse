@@ -12,7 +12,6 @@ The Simple Assembly Line Balancing Problem with Power Peak Minimization (SALBP-3
 
 ## Repository structure
 
-- `sn-article.tex` — main LaTeX source of the paper.
 - `code/` — implementation and scripts used for experiments:
   - `CSE_*.py`, `ORG_*.py`, `ILP_CPLEX.py` — solver implementations and helpers.
   - `data/` — instance files (benchmarks) used in experiments.
