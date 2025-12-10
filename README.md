@@ -1,153 +1,51 @@
-# SALBP-3PM: Simple Assembly Line Balancing Problem with Power Peak Minimization
+# Compact SAT Encoding for Power Peak Minimization (SALBP-3PM)
 
-This repository contains the implementation of Compact SAT encodings for solving the **Simple Assembly Line Balancing Problem with Power Peak Minimization (SALBP-3PM)**.
+This repository contains the artifacts for the paper "Compact SAT Encoding for Power Peak Minimization in Assembly Line Balancing".
 
-## Problem Description
+**Authors:** Tuyen Van Kieu, Phong Chi Nguyen, Bao Gia Hoang, Khanh Van To
 
-The SALBP-3PM aims to assign tasks to workstations in an assembly line while:
-- Respecting precedence constraints between tasks
-- Balancing cycle time constraints
-- **Minimizing the peak power consumption** across all workstations
+**Affiliation:** Faculty of Information Technology, VNU University of Engineering and Technology, Hanoi, Vietnam
 
-## Repository Structure
+## Short description
 
-```
-.
-├── CSE_CB.py          # CSE encoding with Cardinality-Based approach
-├── CSE_Eval.py        # CSE encoding with Evaluation approach
-├── CSE_INC.py         # CSE encoding with Incremental approach
-├── CSE_MaxHS.py       # CSE encoding with MaxHS solver
-├── CSE_PB.py          # CSE encoding with Pseudo-Boolean constraints
-├── ORG_CB.py          # Original encoding with Cardinality-Based approach
-├── ORG_Eval.py        # Original encoding with Evaluation approach
-├── ORG_MaxHS.py       # Original encoding with MaxHS solver
-├── ILP_CPLEX.py       # Integer Linear Programming using CPLEX
-├── data/              # Instance data files (task times, precedence)
-├── presedent_graph/   # Precedence graph data
-└── task_power/        # Power consumption data for each task
-```
+The Simple Assembly Line Balancing Problem with Power Peak Minimization (SALBP-3PM) minimizes the maximum instantaneous power (peak) while assigning tasks to workstations and scheduling their start times under precedence and cycle-time constraints. This repository implements a Compact SAT Encoding (CSE) and several optimization variants (Clause-Based iterative SAT, PB-Constraint iterative SAT, Binary MaxSAT, Incremental SAT) described in the paper.
 
-## Encodings
+## Repository structure
 
-### CSE (Cardinality-based Staircase Encoding)
-- **CSE_CB.py**: Uses cardinality constraints with sequential counter encoding
-- **CSE_Eval.py**: Evaluation-based approach for incremental optimization
-- **CSE_INC.py**: Incremental SAT solving approach
-- **CSE_MaxHS.py**: Integration with MaxHS MaxSAT solver
-- **CSE_PB.py**: Pseudo-Boolean constraint encoding
+- `sn-article.tex` — main LaTeX source of the paper.
+- `code/` — implementation and scripts used for experiments:
+  - `CSE_*.py`, `ORG_*.py`, `ILP_CPLEX.py` — solver implementations and helpers.
+  - `data/` — instance files (benchmarks) used in experiments.
+  - `results/` — experiment outputs (added to the repository).
+- `doc/`, `appendix_*.md`, and other manuscript-related files.
 
-### ORG (Original Encoding)
-- **ORG_CB.py**: Original cardinality-based encoding
-- **ORG_Eval.py**: Original evaluation approach
-- **ORG_MaxHS.py**: Original encoding with MaxHS solver
+## How to reproduce experiments (quick)
 
-### ILP Approach
-- **ILP_CPLEX.py**: Integer Linear Programming formulation using IBM CPLEX
+1. Ensure you have a Python 3.8+ environment and required solver binaries (e.g., CaDiCaL, MaxHS, CPLEX) installed and available on `PATH` if used by scripts.
+2. From the repository root, run the relevant script under `code/` with appropriate arguments. Examples in `code/README.md` explain usage per script.
 
-## Benchmark Instances
-
-The repository includes standard SALBP benchmark instances:
-
-| Instance | Tasks | Description |
-|----------|-------|-------------|
-| MERTENS | 7 | Small instance |
-| BOWMAN | 8 | Small instance |
-| JAESCHKE | 9 | Small instance |
-| JACKSON | 11 | Small instance |
-| MANSOOR | 11 | Small instance |
-| MITCHELL | 21 | Medium instance |
-| ROSZIEG | 25 | Medium instance |
-| HESKIA | 28 | Medium instance |
-| BUXEY | 29 | Medium instance |
-| SAWYER | 30 | Medium instance |
-| GUNTHER | 35 | Large instance |
-| WARNECKE | 58 | Large instance |
-
-## Requirements
-
-- Python 3.8+
-- Required packages:
-  ```
-  pysat
-  pandas
-  numpy
-  tabulate
-  ```
-
-For ILP approach:
-- IBM CPLEX (with Python API)
-
-## Installation
+Example (pseudo):
 
 ```bash
-# Clone the repository
-git clone https://github.com/salbp-3pm/cse.git
-cd cse
+# create virtualenv, install requirements (if needed)
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r code/requirements.txt  # if exists
 
-# Install dependencies
-pip install python-sat pandas numpy tabulate
+# run an experiment script (adapt arguments as needed)
+python code/CSE_Eval.py --instances code/data/ --solver cadical --out results/
 ```
 
-## Usage
+## Results
 
-### Running CSE Encoding
-
-```python
-# Edit the instance file in the script
-python CSE_Eval.py
-```
-
-### Running Original Encoding
-
-```python
-python ORG_Eval.py
-```
-
-### Running ILP with CPLEX
-
-```python
-python ILP_CPLEX.py
-```
-
-## Data Format
-
-### Instance Files (*.IN2)
-```
-<number_of_tasks>
-<task_1_time>
-<task_2_time>
-...
-<task_n_time>
-<predecessor>,<successor>
-...
--1,-1
-```
-
-### Power Files (task_power/*.txt)
-```
-<power_task_1>
-<power_task_2>
-...
-<power_task_n>
-```
+The `results/` folder contains experiment outputs and CSV tables generated during evaluation. See `code/` for the script that produced them.
 
 ## Citation
 
-If you use this code in your research, please cite:
+If you use this work, please cite:
 
-```bibtex
-@article{salbp3pm2024,
-  title={Optimizing Power Peaks in Simple Assembly Line Balancing through Maximum Satisfiability},
-  author={[Authors]},
-  journal={[Journal]},
-  year={2024}
-}
-```
+T. V. Kieu, P. C. Nguyen, B. G. Hoang, and K. V. To, "Compact SAT Encoding for Power Peak Minimization in Assembly Line Balancing," (manuscript).
 
-## License
+## Notes
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For questions or issues, please open an issue on GitHub or contact the authors.
+- This README was added/updated to reflect the paper metadata and the presence of the `results` folder. If you want a longer README (installation details, exact solver versions, sample outputs, or automated run scripts), tell me what extra details to include and I will update it.
